@@ -1,6 +1,6 @@
 {
   "branches": "master",
-  "repositoryUrl": "git@github.com:makbari/mexty.git",
+  "repositoryUrl": "git@github.com:makbari/dexty.git",
   "debug": "true",
   "plugins": [
     "@semantic-release/commit-analyzer",
