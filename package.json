@@ -27,8 +27,7 @@
     "doc": "typedoc --out docs --target es6 --theme minimal --mode file src --readme ./README.md",
     "commit": "git-cz",
     "semantic-release": "semantic-release",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "postinstall": "node ./__install__/init.js"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "license": "MIT",
   "repository": {
