@@ -1,0 +1,134 @@
+{
+  "name": "mexty",
+  "version": "0.0.0-development",
+  "private": "true",
+  "description": "starter boilerplate for creating typescript library",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/types/index.d.ts",
+  "author": {
+    "name": "mohammad akbari",
+    "email": "mohammad-akbari@hotmail.com"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development rollup -c -w",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "prebuild": "yarn clean && yarn doc",
+    "clean": "rm -rf ./lib && rm -rf ./docs",
+    "lint": "yarn lint:json && yarn lint:ts",
+    "lint:json": "prettier --list-different .eslintrc *.json",
+    "lint:ts": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "test": "jest",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "yarn lint && yarn test -- --coverage --no-cache",
+    "doc": "typedoc --out docs --target es6 --theme minimal --mode file src --readme ./README.md",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "postinstall": "node ./__install__/init.js"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https:git@github.com:makbari/dexty.git"
+  },
+  "bugs": {
+    "url": "https://github.com/makbari/dexty/issues"
+  },
+  "homepage": "https://github.com/makbari/dexty#readme",
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "globals": {
+      "__DEV__": true
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-replace": "^2.3.2",
+    "@rollup/plugin-run": "^2.0.2",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "commitizen": "^4.1.2",
+    "conventional-changelog-cli": "^2.0.34",
+    "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.9",
+    "ora": "^4.0.4",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.13.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "semantic-release": "^17.0.8",
+    "semver": "^7.3.2",
+    "simple-git": "^2.7.0",
+    "ts-jest": "^26.1.0",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "commitlint --from origin/master --to HEAD --verbose"
+    }
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add ."
+    ]
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

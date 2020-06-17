@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "lib",
+    "rootDir": ".",
+    "strict": true,
+    "pretty": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "ES6",
+    "lib": ["dom", "esnext"],
+    "types": ["node", "jest"],
+    "declarationDir": "lib/types",
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "stripInternal": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": false,
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "./src/typings"]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib",
+    "__tests__",
+    "**/*.test*",
+    "**/*.spec*"
+  ],
+  "include": ["src/**/*", "test", "__install__"],
+
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  }
+}
