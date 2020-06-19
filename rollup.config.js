@@ -20,7 +20,7 @@ export default {
       chunkFileNames: 'index.esm.js',
       entryFileNames: 'index.esm.js',
       format: 'esm',
-      sourcemap: true
+      sourcemap: false
     },
     {
       dir: './lib',

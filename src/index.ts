@@ -1,34 +1,34 @@
 import 'reflect-metadata';
-console.log('Hello there');
+import dotenv from 'dotenv';
+import Server from './core/Server';
+import Controller from './core/Controller';
+import { Get } from './core/restApi';
 
-if (__DEV__) {
-  console.log('development environment');
-}
-/**
- * Code blocks are great for examples
- *
- * ```
- * <my-custom-element>Highlight JS will auto detect the language</my-custom-element>
- * ```
- *
- * ```typescript
- * // Or you can specify the language explicitly
- * const instance = new MyClass();
- * ```
- */
-export class MyClass {}
-/**
- * Standard links:
- * {@link Foo} or {@linkplain Foo} or [[Foo]]
- *
- * Code links: (Puts Foo inside <code> tags)
- * {@linkcode Foo} or [[`Foo`]]
- */
-export class Bar implements Foo {
-  public member = true;
+import { Request, Response } from 'express';
+dotenv.config();
+const port = process.env.PORT || 8080;
+
+class SampleApp extends Server {
+  public constructor() {
+    super();
+  }
 }
 
-/** More details */
-interface Foo {
-  member: boolean;
+const app = new SampleApp();
+
+app.bootstrap(Number(port)).then(() => {
+  console.log(`express is running on PORT ${port}`);
+});
+@Controller({
+  baseURI: 'user',
+  prefix: 'api',
+  version: 'v1.0'
+})
+export class User {
+  @Get('/users')
+  public index(req: Request, res: Response) {
+    req;
+    return res.send('hello there!');
+  }
 }
+app.addControllers([User]);
