@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/makbari/dexty/compare/v1.0.0...v1.1.0) (2020-06-19)
+
+
+### Features
+
+* **decorator:** server, controller and get decorator is added ([837c7b5](https://github.com/makbari/dexty/commit/837c7b5e069870653f37744a7dad50500236ad46))
+
 # 1.0.0 (2020-06-17)
 
 
