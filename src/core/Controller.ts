@@ -1,10 +1,18 @@
-import { controllerOptions } from './interfaces';
+import { classSignature, methodSignature } from './interfaces';
 
-function Controller(prefix: controllerOptions): ClassDecorator {
+function Controller(prefix: string): ClassDecorator {
   return (target: any) => {
-    Reflect.defineMetadata('prefix', prefix, target);
-    if (!Reflect.hasMetadata('routes', target)) {
-      Reflect.defineMetadata('routes', [], target);
+    let metadata = Reflect.getOwnMetadata(classSignature, target);
+    if (!metadata) {
+      metadata = {};
+    }
+    if (!metadata.path) {
+      metadata.path = '';
+    }
+    metadata.path = prefix;
+    Reflect.defineMetadata(classSignature, metadata, target);
+    if (!Reflect.hasMetadata(methodSignature, target)) {
+      Reflect.defineMetadata(methodSignature, [], target);
     }
   };
 }

@@ -1,20 +1,21 @@
-import { RouteDefinition } from './interfaces';
+import { methodSignature, RouteDefinition } from './interfaces';
 
 export const Get = (path: string): MethodDecorator => {
   return (target, propertyKey: string | Symbol): void => {
-    if (!Reflect.hasMetadata('routes', target.constructor)) {
-      Reflect.defineMetadata('routes', [], target.constructor);
+    if (!Reflect.hasMetadata(methodSignature, target.constructor)) {
+      Reflect.defineMetadata(methodSignature, [], target.constructor);
     }
 
-    const routes = Reflect.getMetadata('routes', target.constructor) as Array<
-      RouteDefinition
-    >;
+    const routes = Reflect.getMetadata(
+      methodSignature,
+      target.constructor
+    ) as Array<RouteDefinition>;
 
     routes.push({
       requestMethod: 'get',
       path,
       methodName: propertyKey as string
     });
-    Reflect.defineMetadata('routes', routes, target.constructor);
+    Reflect.defineMetadata(methodSignature, routes, target.constructor);
   };
 };

@@ -5,6 +5,7 @@ import Controller from './core/Controller';
 import { Get } from './core/restApi';
 
 import { Request, Response } from 'express';
+import classMiddleware from './core/Middleware.decorator';
 dotenv.config();
 const port = process.env.PORT || 8080;
 
@@ -19,16 +20,17 @@ const app = new SampleApp();
 app.bootstrap(Number(port)).then(() => {
   console.log(`express is running on PORT ${port}`);
 });
-@Controller({
-  baseURI: 'user',
-  prefix: 'api',
-  version: 'v1.0'
-})
+function middle(req: Request, res: Response, next: any) {
+  res;
+  req.body = 'Hello there!';
+  next();
+}
+@Controller('/users')
+@classMiddleware([middle])
 export class User {
-  @Get('/users')
+  @Get('/')
   public index(req: Request, res: Response) {
-    req;
-    return res.send('hello there!');
+    return res.send(req.body);
   }
 }
 app.addControllers([User]);

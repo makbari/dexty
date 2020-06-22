@@ -1,11 +1,17 @@
 import express from 'express';
-import { Application } from 'express';
-import { controllerOptions, RouteDefinition } from './interfaces';
+import { Application, Router } from 'express';
+import {
+  classSignature,
+  methodSignature,
+  RouteDefinition,
+  routerConfig
+} from './interfaces';
 
 class Server {
   private readonly _app: Application;
-  public constructor() {
+  public constructor(routerConfigs?: routerConfig) {
     this._app = express();
+    routerConfigs;
   }
   public get app(): Application {
     return this._app;
@@ -17,36 +23,23 @@ class Server {
   }
   public addControllers(controllers: any): void {
     for (const ctrl of controllers) {
-      this.addController(ctrl);
+      let routerLib = Router();
+      const classMetadata = Reflect.getOwnMetadata(classSignature, ctrl);
+      routerLib.use(classMetadata.middlewares);
+      this.addController(ctrl, routerLib);
+      this.app.use(classMetadata.path, routerLib);
     }
   }
-  public addController(controller: any): void {
+  public addController(controller: any, routerLib: Router): void {
     const instance = new controller();
-    const prefix = Reflect.getMetadata(
-      'prefix',
-      controller
-    ) as controllerOptions;
+
     const routes: Array<RouteDefinition> = Reflect.getMetadata(
-      'routes',
+      methodSignature,
       controller
     );
-    routes.forEach((route) => {
-      let path = '';
-      if (typeof prefix === 'string') {
-        path = prefix + route.path;
-      } else {
-        path = `/${prefix.prefix}/${prefix.version}/${prefix.baseURI}${route.path}`;
-      }
-      if (__DEV__) {
-        console.log(path);
-      }
-      this.app[route.requestMethod](
-        path,
-        (req: express.Request, res: express.Response) => {
-          instance[route.methodName](req, res);
-        }
-      );
-    });
+    for (const route of routes) {
+      routerLib[route.requestMethod](route.path, instance[route.methodName]);
+    }
   }
 }
 
