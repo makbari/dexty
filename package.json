@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development rollup -c -w",
+    "start:example": "cross-env NODE_ENV=development rollup --config rollup.example.config.js -w",
     "build": "cross-env NODE_ENV=production rollup -c",
     "prebuild": "yarn clean && yarn doc",
     "clean": "rm -rf ./lib && rm -rf ./docs",

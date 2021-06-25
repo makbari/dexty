@@ -3,9 +3,10 @@ export const methodSignature: Symbol = Symbol('method_signature');
 export const classMiddlewareSignature: Symbol = Symbol(
   'class_middleware_signature'
 );
+export type httpMethods = 'get' | 'post' | 'delete' | 'options' | 'put';
 export interface RouteDefinition {
   path: string;
-  requestMethod: 'get' | 'post' | 'delete' | 'options' | 'put';
+  requestMethod: httpMethods;
   methodName: string;
   middlewares?: any[];
 }

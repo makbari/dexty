@@ -1,8 +1,8 @@
-import { classSignature, methodSignature } from './interfaces';
+import { classSignature } from './interfaces';
 
 function Controller(prefix: string): ClassDecorator {
-  return (target: any) => {
-    let metadata = Reflect.getOwnMetadata(classSignature, target);
+  return <TFunction extends Function>(target: TFunction) => {
+    let metadata = Reflect.getOwnMetadata(classSignature, target.prototype);
     if (!metadata) {
       metadata = {};
     }
@@ -10,10 +10,7 @@ function Controller(prefix: string): ClassDecorator {
       metadata.path = '';
     }
     metadata.path = prefix;
-    Reflect.defineMetadata(classSignature, metadata, target);
-    if (!Reflect.hasMetadata(methodSignature, target)) {
-      Reflect.defineMetadata(methodSignature, [], target);
-    }
+    Reflect.defineMetadata(classSignature, metadata, target.prototype);
   };
 }
 

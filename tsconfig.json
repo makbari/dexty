@@ -32,7 +32,12 @@
     "declarationMap": true,
     "sourceMap": false,
     "resolveJsonModule": true,
-    "typeRoots": ["node_modules/@types", "./src/typings"]
+    "typeRoots": ["node_modules/@types", "./src/interfaces"],
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@di/*": ["src/dependency-injection/*"],
+      "@interfaces/*": ["src/interfaces/*"]
+    }
   },
   "exclude": [
     "node_modules",
@@ -42,7 +47,7 @@
     "**/*.test*",
     "**/*.spec*"
   ],
-  "include": ["src/**/*", "test", "__install__"],
+  "include": ["src/**/*", "example/**/*", "test"],
 
   "typedocOptions": {
     "mode": "modules",

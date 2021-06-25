@@ -11,7 +11,7 @@ notifications:
 node_js:
   - node
 script:
-  - yarn test:prod && yarn build
+  - yarn build
 after_success:
   - npm run doc
   - npm run semantic-release
