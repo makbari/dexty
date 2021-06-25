@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/makbari/dexty/compare/v1.1.0...v1.2.0) (2020-06-22)
+
+
+### Features
+
+* **decorators:** server, controllers, route level middlewares ([ad72cee](https://github.com/makbari/dexty/commit/ad72cee7e0185ae2db06350eeb336bc191583e57))
+
 # [1.1.0](https://github.com/makbari/dexty/compare/v1.0.0...v1.1.0) (2020-06-19)
 
 
